@@ -1,6 +1,7 @@
 'use strict'
 var mqtt = require('mqtt')
 var publisher = require('./publisher.js')
+var os = require('os')
 
 function Publish(endpoints, object) {
     if (endpoints && Array.isArray(endpoints)) {
@@ -15,6 +16,13 @@ function Publish(endpoints, object) {
                 }
 
                 //publish
+
+                //sub eth0 mac
+                var adapter = os.networkInterfaces().eth0
+                if( endpoint.topic.includes("[MAC]") && Array.isArray(adapter) && adapter[0] && adapter[0].mac) {
+                    endpoint.topic = endpoint.topic.replace(/\[MAC\]/g, adapter[0].mac)
+                }
+                
                 endpoint.client.publish(endpoint.topic, JSON.stringify(object), options, (err) => {
                     if (err) {
                         console.log("mqttPublish error %s/%s: %s", endpoint.url, endpoint.topic, err)
