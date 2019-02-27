@@ -24,7 +24,7 @@
                     "filters": {
                         "ibeacon": "[0-9a-f]{20}0463[0-9a-f]{8}"
                     },
-                    "customFormatter": "{ if (input && input.beacon && input.rssi && input.macAddress) { output = { device_id: input.macAddress, rssi: input.rssi } } }"
+                    "customFormatter": "{ if (input && input.beacon && input.rssi && input.macAddress) { output = { device_id: input.macAddress.match(/.{2}/g).join(':'), rssi: input.rssi } } }"
                 }
             }
         }
