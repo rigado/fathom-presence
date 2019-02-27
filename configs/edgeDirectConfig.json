@@ -1,0 +1,32 @@
+{
+    "apps": {
+        "semos": {
+            "values": {
+                "config": {
+                    "endpoints": {
+                        "mqtt": [
+                            {
+                                "url": "mqtt://192.168.31.73",
+                                "topic": "[MAC]",
+                                "pubOptions": {
+                                    "qos": 0
+                                }
+                            }
+                        ]
+                    },
+                    "publish": {
+                        "intervalMs": 1000,
+                        "stream": true
+                    },
+                    "enabledTypes": [
+                        "ibeacon"
+                    ],
+                    "filters": {
+                        "ibeacon": "[0-9a-f]{20}0463[0-9a-f]{8}"
+                    },
+                    "customFormatter": "{ if (input && input.beacon && input.rssi && input.macAddress) { output = { device_id: input.macAddress, rssi: input.rssi } } }"
+                }
+            }
+        }
+    }
+}
