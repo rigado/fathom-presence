@@ -24,8 +24,9 @@ function Init() {
     var cfg = config.ActiveConfig()
     state.hostname = os.hostname()
 
-    intervalStart(cfg.publish.intervalMs)
-
+    if (cfg.publish.stream !== true) {
+        intervalStart(cfg.publish.intervalMs)
+    }
 }
 
 function Cleanup() {
@@ -193,6 +194,34 @@ function publish() {
 }
 
 
+function PublishStream(object) {
+    var cfg = config.ActiveConfig()
+    var out = object
+
+    //custom formatter?
+    if (cfg.customFormatter != null) {
+        try {
+            out = sandbox.Run(cfg.customFormatter, object)
+            console.log("formatter success: " + JSON.stringify(out))
+        } catch (err) {
+            console.log("formatter error, detaching: %s", err)
+            cfg.customFormatter = null
+        }
+    }
+
+    if (out == null) {
+        return
+    }
+
+    //send the data
+    publishersDispatch(out)
+
+    //debug published data?
+    if (cfg.debug && cfg.debug.includes("publish")) {
+        console.log("publishing: " + JSON.stringify(out))
+    }
+}
+
 function publishersDispatch(object) {
     const cfg = config.ActiveConfig()
     const endpoints = cfg.endpoints
@@ -208,3 +237,4 @@ module.exports.Init = Init
 module.exports.Cleanup = Cleanup
 module.exports.Test = Test
 module.exports.OnSuccess = OnSuccess
+module.exports.PublishStream = PublishStream

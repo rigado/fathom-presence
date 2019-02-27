@@ -5,6 +5,7 @@ var noble = require('noble')
 var edgeConnect = require('./edgeConnect.js')
 var config = require('./config.js')
 var reportTable = require('./reportTable.js')
+var publisher = require('./publisher.js')
 var sleep = require('sleep')
 
 var mode = null
@@ -51,10 +52,14 @@ function Cleanup() {
 function onAdvertisement(advertisement) {
     //queue the report
     if (advertisement) {
-        reportTable.PutReport(advertisement)
+        var cfg = config.ActiveConfig()
+        if(cfg.publish.stream === true) {
+            publisher.PublishStream(advertisement)
+        } else {
+            reportTable.PutReport(advertisement)
+        }
 
         //dump the advertisement json?
-        var cfg = config.ActiveConfig()
         if (cfg.debug && cfg.debug.includes("advertisements")) {
             console.log("advertisement:\n" + JSON.stringify(advertisement, null, 2))
         }
