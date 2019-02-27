@@ -1,0 +1,9 @@
+{
+  "name": "functionFormatter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "functionFormatter.js",
+  "dependencies": {
+    "yargs": "latest"
+  }
+}

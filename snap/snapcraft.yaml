@@ -1,0 +1,31 @@
+name: noble-bmd-scanner
+version: '0.9.0'
+summary: scanner snap
+description: scanner snap
+
+grade: stable
+confinement: strict
+
+apps:
+  scan:
+    command: node $SNAP/lib/node_modules/noble-bmd-scanner/scanner.js
+    daemon: simple
+    plugs:
+      - network
+      - bluetooth-control
+      - network-control
+
+parts:
+  scanner-js:
+    plugin: nodejs
+    node-engine: 9.11.2
+    npm-flags:
+      - --no-optional
+    build-packages:
+      - bluez
+      - libudev-dev
+      - libbluetooth-dev
+      - python
+      - g++
+      - make
+    source: js  

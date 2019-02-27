@@ -1,0 +1,7 @@
+*.snap
+parts
+prime
+snap
+stage
+node_modules
+package-lock.json

@@ -1,0 +1,27 @@
+{
+  "name": "noble-bmd-scanner",
+  "version": "0.0.1",
+  "description": "BLE scanner that pushes to various endpoints",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rigado/noble-bmd-scanner.git"
+  },
+  "dependencies": {
+    "noble": "https://github.com/rigado/noble.git#cascade",
+    "request": "latest",
+    "yargs": "latest",
+    "gps": "latest",
+    "serialport": "latest",
+    "fs": "latest",
+    "bluetooth-hci-socket": "latest",
+    "mqtt": "latest",
+    "aws-iot-device-sdk": "latest",
+    "azure-iot-device": "latest",
+    "azure-iot-device-http": "latest",
+    "azure-iot-device-amqp": "latest",
+    "azure-iot-device-mqtt": "latest",
+    "vm": "latest",
+    "eddystone-url-encoding": "latest",
+    "sleep": "latest"
+  }
+}

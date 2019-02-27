@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+#stop
+snapctl stop ${SNAP_NAME}
+
+#nothing to do, the snap reads direct from snapctl
+
+#restart
+snapctl start ${SNAP_NAME}
